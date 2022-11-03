@@ -4,6 +4,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class User {
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,8 +20,6 @@ export class User {
   @Column()
   isAdmin: boolean;
 
-  @OneToMany(() => Todo, (todo) => todo.user, {
-    cascade: true,
-  })
+  @OneToMany(() => Todo, (todo) => todo.user)
   todos: Todo[];
 }

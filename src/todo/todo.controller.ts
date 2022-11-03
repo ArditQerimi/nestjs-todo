@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
@@ -13,22 +23,25 @@ import { Action } from 'src/common/enums/casl-actions.enum';
 @Controller('todo')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
-  
+
   @UseGuards(JwtAuthGuard, AbilitiesGuard)
   @CheckAbilities({ action: Action.Create, subject: User })
   @Post()
-    async create(
-      @Body() createTodoDto: CreateTodoDto,
-      @Req() req: any,
-    ): Promise<CreateTodoDto> {
-      const user = req.user as SigninDto;
-  
-      return await this.todoService.createTodo(user, createTodoDto);
-    }
+  async create(
+    @Body() createTodoDto: CreateTodoDto,
+    @Req() req: any,
+  ): Promise<CreateTodoDto> {
+    const user = req.user as SigninDto;
 
+    return await this.todoService.createTodo(user, createTodoDto);
+  }
+
+  @UseGuards(JwtAuthGuard, AbilitiesGuard)
+  @CheckAbilities({ action: Action.Read, subject: User })
   @Get()
-  findAll() {
-    return this.todoService.findAll();
+  findAll(    @Req() req: any,) {
+    const user = req.user as SigninDto;
+    return this.todoService.findAll(user);
   }
 
   @Get(':id')

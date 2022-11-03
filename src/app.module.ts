@@ -10,6 +10,8 @@ import { CaslModule } from './casl/casl.module';
 // import { AbilitiesGuard } from './casl/ability.guard';
 import { TodoModule } from './todo/todo.module';
 import { Todo } from './todo/entities/todo.entity';
+import { CategoryModule } from './category/category.module';
+import { Category } from './category/entities/category.entity';
 
 @Module({
   imports: [
@@ -24,13 +26,14 @@ import { Todo } from './todo/entities/todo.entity';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DATABASE'),
-        entities: [User, Todo],
+        entities: [User, Todo, Category],
         synchronize: true,
       }),
     }),
     UserModule,
     CaslModule,
     TodoModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [

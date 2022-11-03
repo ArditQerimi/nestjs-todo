@@ -3,7 +3,11 @@ import { TaskDto } from './task.dto';
 
 export class CreateTodoDto {
   @IsString()
-  todo: string;
+  todo?: string;
+
+  categoryId?: number[];
+
+  userId?:any
 
   tasks?: TaskDto[];
 }

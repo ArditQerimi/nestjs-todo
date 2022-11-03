@@ -8,6 +8,8 @@ export class Todo {
   @Column()
   name: string;
 
+
+
   @Column({ default: false })
   complete: boolean;
   user: any;
